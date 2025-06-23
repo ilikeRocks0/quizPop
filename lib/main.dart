@@ -6,8 +6,7 @@ import 'package:flutter_application_2/presentation/modal_manager.dart';
 import 'package:flutter_application_2/logic/word_manager.dart';
 import 'package:flutter_application_2/logic/word_editor_manager.dart';
 import 'package:flutter_application_2/myApp.dart';
-import 'package:flutter_application_2/presentation/page_descriptor.dart';
-import 'package:flutter_application_2/presentation/view_words_screens.dart';
+import 'package:flutter_application_2/presentation/page_factory.dart';
 
 void main() {
     final wordRepository = WordRepositoryHash();
@@ -16,23 +15,11 @@ void main() {
     final wordEditorManager = WordEditorManager(wordRepository);
     const modalManager = ModalManager(); 
 
-    final pages = [
-    PageDescriptor(
-      label: 'Add Word',
-      icon: Icons.add,
-      screen: AddWordScreen(
-        wordManager: wordManager,
-        modalManager: modalManager,
-      ),
-    ),
-    PageDescriptor(
-      label: 'View Words',
-      icon: Icons.list,
-      screen: ViewWordsScreen(
-        wordListManager: wordListManager,
-      ),
-    ),
-  ];
+    final pages = buildAppPages(
+    wordManager: wordManager,
+    wordListManager: wordListManager,
+    modalManager: modalManager,
+  );
   
 
     runApp(MyApp(pages: pages));
