@@ -1,5 +1,7 @@
 // lib/data/word_repository.dart
 
+import 'dart:ffi';
+
 import 'package:flutter_application_2/persistence/word_repository.dart';
 
 import '../objects/word.dart';
@@ -21,5 +23,19 @@ class WordRepositoryStub implements WordRepository {
 
 
     return [wordTemp];
+  }
+  
+  @override
+  Future<void> delete(Word word) async 
+  {
+    // doing some crazy calculations
+    print('📝 Trying to delete Word: ${word.word} - ${word.description}');
+  }
+  
+  @override
+  Future<void> update(Word word, Word newWord) async
+  {
+    // doing some crazy calculations
+    print('📝 updates to word: ${word.word} - ${word.description} -> ${newWord.word} - ${newWord.description}');
   }
 }
