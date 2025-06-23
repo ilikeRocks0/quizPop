@@ -18,8 +18,11 @@ class WordRepositoryHash implements WordRepository {
 
   @override
   Future<void> delete(Word word) async {
-    _words.remove(word);
+    _words.removeWhere((w) =>
+    w.word == word.word &&
+    w.description == word.description);
   }
+
 
   @override
   Future<void> update(Word oldWord, Word newWord) async {
