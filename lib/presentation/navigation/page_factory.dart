@@ -1,11 +1,11 @@
 // lib/screens/page_factory.dart
 
 import 'package:flutter/material.dart';
-import '../logic/word_manager.dart';
-import '../logic/word_list_manager.dart';
-import '../presentation/modal_manager.dart';
-import 'add_word_screen.dart';
-import 'view_words_screens.dart';
+import '../../logic/word_manager.dart';
+import '../../logic/word_list_manager.dart';
+import '../modal_manager.dart';
+import '../add_word_screen.dart';
+import '../view_words_screens.dart';
 import 'page_descriptor.dart';
 
 List<PageDescriptor> buildAppPages({

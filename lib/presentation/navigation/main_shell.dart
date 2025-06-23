@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'page_descriptor.dart';
 
+//sets up the bottom nav bar
 class MainShell extends StatefulWidget {
   final List<PageDescriptor> pages;
 

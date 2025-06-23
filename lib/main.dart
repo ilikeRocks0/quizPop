@@ -6,7 +6,7 @@ import 'package:flutter_application_2/presentation/modal_manager.dart';
 import 'package:flutter_application_2/logic/word_manager.dart';
 import 'package:flutter_application_2/logic/word_editor_manager.dart';
 import 'package:flutter_application_2/myApp.dart';
-import 'package:flutter_application_2/presentation/page_factory.dart';
+import 'package:flutter_application_2/presentation/navigation/page_factory.dart';
 
 void main() {
     final wordRepository = WordRepositoryHash();
