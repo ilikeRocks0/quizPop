@@ -1,19 +1,21 @@
 // lib/screens/add_word_screen.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/logic/modal_manager.dart';
 import 'package:flutter_application_2/logic/word_manager.dart';
 import 'package:flutter_application_2/presentation/widgets/word_form.dart';
 
 class AddWordScreen extends StatelessWidget {
   final WordManager wordManager;
+  final ModalManager modalManager;
 
-  const AddWordScreen({super.key, required this.wordManager});
+  const AddWordScreen({super.key, required this.wordManager, required this.modalManager});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Add New Word')),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: WordForm(wordManager: wordManager,),
+        child: WordForm(wordManager: wordManager, modalManager: modalManager,),
       ),
     );
   }

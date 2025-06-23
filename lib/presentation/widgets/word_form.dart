@@ -1,5 +1,6 @@
 // TODO Implement this library.// lib/widgets/word_form.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/logic/modal_manager.dart';
 import 'package:flutter_application_2/logic/word_manager.dart';
 import 'package:flutter_application_2/presentation/add_word_controller.dart';
 import 'package:flutter_application_2/presentation/widgets/word_input_field.dart';
@@ -10,8 +11,13 @@ import 'package:flutter_application_2/presentation/widgets/save_button.dart';
 
 class WordForm extends StatefulWidget {
   final WordManager wordManager;
+  final ModalManager modalManager;
   
-  const WordForm({super.key, required this.wordManager});
+  const WordForm({
+    super.key,
+    required this.wordManager,
+    required this.modalManager,
+  });
 
   @override
   State<WordForm> createState() => _WordFormState();
@@ -28,9 +34,14 @@ class _WordFormState extends State<WordForm> {
   }
 
   Future<void> _handleSave() async {
+      if (!_formKey.currentState!.validate()) return;
+
+      final confirm = await widget.modalManager.showConfirmation(context: context);
+      
+      //if not confirm
+      if (!confirm) return;
 
       //ask logic layer if its fine
-      if (_formKey.currentState!.validate()) {
         await widget.wordManager.processAndSave(
         _controller.wordController.text,
         _controller.descriptionController.text,
@@ -41,9 +52,10 @@ class _WordFormState extends State<WordForm> {
         const SnackBar(content: Text('Word saved!')),
       );
 
+      // Refresh UI
       _controller.clearFields();
-      setState(() {}); // Refresh UI
-    }
+      setState(() {}); 
+    
   }
 
   @override
