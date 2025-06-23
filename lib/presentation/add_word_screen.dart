@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/presentation/modal_manager.dart';
 import 'package:flutter_application_2/logic/word_manager.dart';
-import 'package:flutter_application_2/presentation/widgets/word_form.dart';
+import 'package:flutter_application_2/presentation/widgets/word_form/word_form.dart';
 
 class AddWordScreen extends StatelessWidget {
   final WordManager wordManager;
