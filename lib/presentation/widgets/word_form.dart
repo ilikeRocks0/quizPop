@@ -1,6 +1,6 @@
 // TODO Implement this library.// lib/widgets/word_form.dart
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/logic/modal_manager.dart';
+import 'package:flutter_application_2/presentation/modal_manager.dart';
 import 'package:flutter_application_2/logic/word_manager.dart';
 import 'package:flutter_application_2/presentation/add_word_controller.dart';
 import 'package:flutter_application_2/presentation/widgets/word_input_field.dart';
