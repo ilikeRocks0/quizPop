@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/logic/modal_manager.dart';
+import 'package:flutter_application_2/presentation/modal_manager.dart';
 import 'package:flutter_application_2/logic/word_manager.dart';
 import 'package:flutter_application_2/myApp.dart';
 import 'package:flutter_application_2/persistence/word_repository.dart';
