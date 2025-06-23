@@ -1,12 +1,17 @@
 // TODO Implement this library.// lib/widgets/word_form.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/logic/word_manager.dart';
 import 'package:flutter_application_2/presentation/add_word_controller.dart';
 import 'package:flutter_application_2/presentation/widgets/word_input_field.dart';
 import 'package:flutter_application_2/presentation/widgets/description_input_field.dart';
 import 'package:flutter_application_2/presentation/widgets/save_button.dart';
 
+
+
 class WordForm extends StatefulWidget {
-  const WordForm({super.key});
+  final WordManager wordManager;
+  
+  const WordForm({super.key, required this.wordManager});
 
   @override
   State<WordForm> createState() => _WordFormState();
@@ -22,12 +27,16 @@ class _WordFormState extends State<WordForm> {
     super.dispose();
   }
 
-  void _handleSave() {
-    if (_controller.validateForm(_formKey)) {
-      final word = _controller.createWord();
+  Future<void> _handleSave() async {
 
-      print('Saved: ${word.word} - ${word.description}');
+      //ask logic layer if its fine
+      if (_formKey.currentState!.validate()) {
+        await widget.wordManager.processAndSave(
+        _controller.wordController.text,
+        _controller.descriptionController.text,
+      );
 
+      //print success
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Word saved!')),
       );
@@ -43,9 +52,9 @@ class _WordFormState extends State<WordForm> {
       key: _formKey,
       child: Column(
         children: [
-          WordInputField(controller: _controller.wordController),
+          WordInputField(controller: _controller.wordController, validator: widget.wordManager.validateWord),
           const SizedBox(height: 16),
-          DescriptionInputField(controller: _controller.descriptionController),
+          DescriptionInputField(controller: _controller.descriptionController, validator: widget.wordManager.validateWord),
           const SizedBox(height: 24),
           SaveButton(onPressed: _handleSave),
         ],

@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 class WordInputField extends StatelessWidget {
   final TextEditingController controller;
+  final String? Function(String?) validator;
 
-  const WordInputField({super.key, required this.controller});
+  const WordInputField({super.key, required this.controller, required this.validator});
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +15,7 @@ class WordInputField extends StatelessWidget {
         labelText: 'Word',
         border: OutlineInputBorder(),
       ),
-      validator: (value) =>
-          value == null || value.trim().isEmpty ? 'Enter a word' : null,
+      validator: validator,
     );
   }
 }

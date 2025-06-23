@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/presentation/add_word_screen.dart';
+import 'package:flutter_application_2/logic/word_manager.dart';
+import 'package:flutter_application_2/myApp.dart';
+import 'package:flutter_application_2/persistence/word_repository.dart';
 
 void main() {
-  runApp(const MaterialApp(
-    home: AddWordScreen(),
-  ));
+    final wordRepository = WordRepository();
+    final wordManager = WordManager(wordRepository);
+
+    runApp(MyApp(wordManager: wordManager));
 }
