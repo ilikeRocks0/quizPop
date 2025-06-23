@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/presentation/modal_manager.dart';
 import 'package:flutter_application_2/logic/word_manager.dart';
-import 'package:flutter_application_2/presentation/add_word_controller.dart';
+import 'package:flutter_application_2/presentation/word_form_controller.dart';
 import 'package:flutter_application_2/presentation/widgets/word_input_field.dart';
 import 'package:flutter_application_2/presentation/widgets/description_input_field.dart';
 import 'package:flutter_application_2/presentation/widgets/save_button.dart';
@@ -25,7 +25,7 @@ class WordForm extends StatefulWidget {
 
 class _WordFormState extends State<WordForm> {
   final _formKey = GlobalKey<FormState>();
-  final _controller = AddWordController();
+  final _controller = WordFormController();
 
   @override
   void dispose() {

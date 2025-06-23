@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-class AddWordController {
+class WordFormController {
   final wordController = TextEditingController();
   final descriptionController = TextEditingController();
 
