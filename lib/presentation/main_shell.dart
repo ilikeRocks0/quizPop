@@ -1,6 +1,7 @@
 // lib/screens/main_shell.dart
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/logic/word_editor_manager.dart';
 import 'package:flutter_application_2/presentation/modal_manager.dart';
 import 'add_word_screen.dart';
 import 'view_words_screens.dart';
@@ -13,12 +14,14 @@ class MainShell extends StatefulWidget {
   final WordManager wordManager;
   final WordListManager wordListManager;
   final ModalManager modalManager;
+  final WordEditorManager wordEditorManager;
 
   const MainShell({
     super.key,
     required this.wordManager,
     required this.wordListManager,
     required this.modalManager,
+    required this.wordEditorManager,
   });
 
   @override
