@@ -15,6 +15,17 @@ class MainShell extends StatefulWidget {
 class _MainShellState extends State<MainShell> {
   int _selectedIndex = 0;
 
+
+  //builds the bottom bar from the list of pages
+  List<BottomNavigationBarItem> _buildNavItems() {
+    return widget.pages.map((page) {
+      return BottomNavigationBarItem(
+        icon: Icon(page.icon),
+        label: page.label,
+      );
+    }).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,14 +33,7 @@ class _MainShellState extends State<MainShell> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: (index) => setState(() => _selectedIndex = index),
-        items: widget.pages
-            .map(
-              (page) => BottomNavigationBarItem(
-                icon: Icon(page.icon),
-                label: page.label,
-              ),
-            )
-            .toList(),
+        items: _buildNavItems(),
       ),
     );
   }

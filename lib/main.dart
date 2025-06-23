@@ -35,5 +35,5 @@ void main() {
   ];
   
 
-    runApp(MyApp(wordManager: wordManager,wordListManager: wordListManager, modalManager: modalManager, wordEditorManager: wordEditorManager, pages: pages));
+    runApp(MyApp(pages: pages));
 }
