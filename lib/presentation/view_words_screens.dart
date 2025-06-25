@@ -1,43 +1,69 @@
 // lib/screens/view_words_screen.dart
 
 import 'package:flutter/material.dart';
-import '../logic/word_list_manager.dart';
-import '../objects/word.dart';
+import 'package:flutter_application_2/presentation/widgets/words_view/view_words_controller.dart';
 
-class ViewWordsScreen extends StatelessWidget {
-  final WordListManager wordListManager;
+class ViewWordsScreen extends StatefulWidget {
+  final ViewWordsController controller;
 
-  const ViewWordsScreen({super.key, required this.wordListManager});
+  const ViewWordsScreen({super.key, required this.controller});
+
+  @override
+  State<ViewWordsScreen> createState() => _ViewWordsScreenState();
+}
+
+class _ViewWordsScreenState extends State<ViewWordsScreen> {
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(_onControllerUpdate);
+    widget.controller.loadWords();
+  }
+
+  @override
+  void dispose() {
+    widget.controller.removeListener(_onControllerUpdate);
+    super.dispose();
+  }
+
+  void _onControllerUpdate() {
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
+    final controller = widget.controller;
+
     return Scaffold(
       appBar: AppBar(title: const Text('Saved Words')),
-      body: FutureBuilder<List<Word>>(
-        future: wordListManager.fetchAllWords(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
+      body: _buildBody(controller),
+    );
+  }
 
-          if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('No words saved.'));
-          }
+  Widget _buildBody(ViewWordsController controller) {
+    if (controller.isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
 
-          final words = snapshot.data!;
+    if (controller.error != null) {
+      return Center(child: Text('Error: ${controller.error}'));
+    }
 
-          return ListView.builder(
-            itemCount: words.length,
-            itemBuilder: (context, index) {
-              final word = words[index];
-              return ListTile(
-                title: Text(word.word),
-                subtitle: Text(word.description),
-              );
-            },
-          );
-        },
-      ),
+    if (controller.words.isEmpty) {
+      return const Center(child: Text('No words saved.'));
+    }
+
+    return ListView(
+      children: controller.words.map((word) {
+        return ListTile(
+          title: Text(word.word),
+          onTap: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Tapped: ${word.word}')),
+            );
+          },
+        );
+      }).toList(),
     );
   }
 }
