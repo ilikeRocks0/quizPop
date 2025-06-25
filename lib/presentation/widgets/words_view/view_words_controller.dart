@@ -2,34 +2,29 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/logic/word_list_manager.dart';
-import 'package:flutter_application_2/objects/word.dart';
+import 'package:flutter_application_2/presentation/widgets/words_view/word_list_view_factory.dart';
 
-class ViewWordsController extends ChangeNotifier {
+class ViewWordsController {
   final WordListManager wordListManager;
+  final WordListViewFactory wordListViewFactory;
 
-  ViewWordsController({required this.wordListManager});
+  ViewWordsController({required this.wordListManager, required this.wordListViewFactory});
 
-  List<Word> _words = [];
-  String? _error;
-  bool _loading = true;
+  Future<Widget> buildWordList(BuildContext context) async 
+  {
+    try 
+    {
+      final words = await wordListManager.fetchAllWords();
 
-  List<Word> get words => _words;
-  String? get error => _error;
-  bool get isLoading => _loading;
+      if (words.isEmpty) 
+      {
+        return wordListViewFactory.buildEmpty();
+      }
 
-  Future<void> loadWords() async {
-    _loading = true;
-    _error = null;
-    notifyListeners();
-
-    try {
-      final fetched = await wordListManager.fetchAllWords();
-      _words = fetched;
-    } catch (e) {
-      _error = e.toString();
+      return wordListViewFactory.buildListView(words: words);
+    } catch (e) 
+    {
+      return wordListViewFactory.buildError(e.toString());
     }
-
-    _loading = false;
-    notifyListeners();
   }
 }
