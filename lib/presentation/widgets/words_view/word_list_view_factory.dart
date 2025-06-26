@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/objects/word.dart';
-import 'package:flutter_application_2/presentation/widgets/words_view/word_tile.dart';
 class WordListViewFactory {
   //the page we will go to when we click it
   final void Function(BuildContext, Word) onTapNavigateTo;
