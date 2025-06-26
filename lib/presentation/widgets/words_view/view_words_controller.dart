@@ -21,7 +21,7 @@ class ViewWordsController {
         return wordListViewFactory.buildEmpty();
       }
 
-      return wordListViewFactory.buildListView(words: words);
+      return wordListViewFactory.buildListView(words: words, context: context);
     } catch (e) 
     {
       return wordListViewFactory.buildError(e.toString());

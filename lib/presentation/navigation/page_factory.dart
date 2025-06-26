@@ -1,8 +1,10 @@
 // lib/screens/page_factory.dart
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/objects/word.dart';
 import 'package:flutter_application_2/presentation/widgets/words_view/view_words_controller.dart';
 import 'package:flutter_application_2/presentation/widgets/words_view/word_list_view_factory.dart';
+import 'package:flutter_application_2/presentation/word_detail_screen.dart';
 import '../../logic/word_manager.dart';
 import '../../logic/word_list_manager.dart';
 import '../modal_manager.dart';
@@ -23,7 +25,17 @@ class PageFactory {
   });
 
   List<PageDescriptor> buildPages() {
-    final wordListViewFactory = WordListViewFactory();//we will move these later, each page will get its own factory
+    //we will move these later, each page will get its own factory
+    final descriptionPage = (BuildContext context, Word word) => 
+    {
+      Navigator.of(context).push
+      (
+        MaterialPageRoute(builder: (_) => WordDetailScreen(word: word),)
+      )
+    };
+
+
+    final wordListViewFactory = WordListViewFactory(onTapNavigateTo: descriptionPage);
     final viewWordsController = ViewWordsController(wordListManager: wordListManager, wordListViewFactory: wordListViewFactory);
 
     return [
