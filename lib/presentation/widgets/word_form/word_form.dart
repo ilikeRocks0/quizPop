@@ -1,74 +1,43 @@
-// TODO Implement this library.// lib/widgets/word_form.dart
+// lib/presentation/widgets/word_form/word_form.dart
+
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/presentation/modal_manager.dart';
-import 'package:flutter_application_2/logic/word_manager.dart';
-import 'package:flutter_application_2/presentation/widgets/word_form/word_form_controller.dart';
-import 'package:flutter_application_2/presentation/widgets/word_form/word_input_field.dart';
-import 'package:flutter_application_2/presentation/widgets/word_form/description_input_field.dart';
-import 'package:flutter_application_2/presentation/widgets/word_form/save_button.dart';
-
-
+import 'word_form_controller.dart';
+import 'word_input_field.dart';
+import 'description_input_field.dart';
+import 'save_button.dart';
 
 class WordForm extends StatefulWidget {
-  final WordManager wordManager;
-  final ModalManager modalManager;
-  
-  const WordForm({
-    super.key,
-    required this.wordManager,
-    required this.modalManager,
-  });
+  final WordFormController controller;
+
+  const WordForm({super.key, required this.controller});
 
   @override
   State<WordForm> createState() => _WordFormState();
 }
 
 class _WordFormState extends State<WordForm> {
-  final _formKey = GlobalKey<FormState>();
-  final _controller = WordFormController();
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  Future<void> _handleSave() async {
-      if (!_formKey.currentState!.validate()) return;
-
-      final confirm = await widget.modalManager.showConfirmation(context: context);
-      
-      //if not confirm
-      if (!confirm) return;
-
-      //ask logic layer if its fine
-        await widget.wordManager.processAndSave(
-        _controller.wordController.text,
-        _controller.descriptionController.text,
-      );
-
-      //print success
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Word saved!')),
-      );
-
-      // Refresh UI
-      _controller.clearFields();
-      setState(() {}); 
-    
+  Future<void> _onSave() async {
+    final saved = await widget.controller.handleSave(context);
+    if (saved) setState(() {}); // refresh form after saving
   }
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: _formKey,
+      key: widget.controller.formKey,
       child: Column(
         children: [
-          WordInputField(controller: _controller.wordController, validator: widget.wordManager.validateWord),
+          WordInputField(
+            controller: widget.controller.wordController,
+            validator: widget.controller.validateWord,
+          ),
           const SizedBox(height: 16),
-          DescriptionInputField(controller: _controller.descriptionController, validator: widget.wordManager.validateWord),
+          DescriptionInputField(
+            controller: widget.controller.descriptionController,
+            validator: widget.controller.validateDescription,
+          ),
           const SizedBox(height: 24),
-          SaveButton(onPressed: _handleSave),
+          SaveButton(onPressed: _onSave),
         ],
       ),
     );

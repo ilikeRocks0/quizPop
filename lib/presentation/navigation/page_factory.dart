@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/presentation/navigation/view_words_controller_factory.dart';
+import 'package:flutter_application_2/presentation/navigation/word_form_controller_factory.dart';
 import '../../logic/word_manager.dart';
 import '../../logic/word_list_manager.dart';
 import '../modal_manager.dart';
@@ -20,7 +21,7 @@ class PageFactory
 
   List<PageDescriptor> buildPages() {
     //we will move these later, each page will get its own factory
-    
+    final wordFormController = WordFormControllerFactory(modalManager, wordManager).buildController();
     final viewWordsController = ViewWordsControllerFactory(wordListManager).buildController();
 
     return [
@@ -28,8 +29,7 @@ class PageFactory
         label: 'Add Word',
         icon: Icons.add,
         screen: AddWordScreen(
-          wordManager: wordManager,
-          modalManager: modalManager,
+          wordFormController: wordFormController,
         ),
       ),
       PageDescriptor(

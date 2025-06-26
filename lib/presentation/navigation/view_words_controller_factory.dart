@@ -10,7 +10,7 @@ import 'package:flutter_application_2/presentation/word_detail_screen.dart';
 
 class ViewWordsControllerFactory
 {
-  WordListManager wordListManager;
+  final WordListManager wordListManager;
 
 
   ViewWordsControllerFactory(this.wordListManager);
