@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/presentation/navigation/main_shell.dart';
-import 'package:flutter_application_2/presentation/navigation/page_descriptor.dart';
+import 'package:flutter_application_2/main_shell.dart';
+import 'package:flutter_application_2/presentation/pages/page_descriptor.dart';
 
 //starts up app
 class MyApp extends StatelessWidget {

@@ -6,8 +6,8 @@ import 'package:flutter_application_2/presentation/widgets/word_form/word_form_c
 import '../../logic/word_manager.dart';
 import '../../logic/word_list_manager.dart';
 import '../modal_manager.dart';
-import '../add_word_screen.dart';
-import '../view_words_screens.dart';
+import '../screens/add_word_screen.dart';
+import '../screens/view_words_screens.dart';
 import 'page_descriptor.dart';
 
 class PageFactory 

@@ -1,7 +1,7 @@
 // lib/screens/word_detail_screen.dart
 
 import 'package:flutter/material.dart';
-import '../objects/word.dart';
+import '../../objects/word.dart';
 
 class WordDetailScreen extends StatelessWidget {
   final Word word;
