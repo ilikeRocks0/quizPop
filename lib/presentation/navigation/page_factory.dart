@@ -1,8 +1,8 @@
 // lib/screens/page_factory.dart
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/presentation/navigation/view_words_controller_factory.dart';
-import 'package:flutter_application_2/presentation/navigation/word_form_controller_factory.dart';
+import 'package:flutter_application_2/presentation/widgets/words_view/view_words_controller_factory.dart';
+import 'package:flutter_application_2/presentation/widgets/word_form/word_form_controller_factory.dart';
 import '../../logic/word_manager.dart';
 import '../../logic/word_list_manager.dart';
 import '../modal_manager.dart';
