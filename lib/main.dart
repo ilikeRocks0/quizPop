@@ -14,7 +14,7 @@ void main() {
     final wordEditorManager = WordEditorManager(wordRepository);
     const modalManager = ModalManager(); 
 
-    final pageFactory = PageFactory(wordManager: wordManager, wordListManager: wordListManager, modalManager: modalManager);
+    final pageFactory = PageFactory(wordManager: wordManager, wordEditorManager: wordEditorManager, wordListManager: wordListManager, modalManager: modalManager);
 
     final pages = pageFactory.buildPages();
   

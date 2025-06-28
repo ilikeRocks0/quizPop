@@ -26,9 +26,12 @@ class WordRepositoryHash implements WordRepository {
 
   @override
   Future<void> update(Word oldWord, Word newWord) async {
-    final index = _words.indexOf(oldWord);
-    if (index != -1) {
-      _words[index] = newWord;
-    }
+  final index = _words.indexWhere(
+    (w) => w.word == oldWord.word && w.description == oldWord.description,
+  );
+  print(index);
+  if (index != -1) {
+    _words[index] = newWord;
   }
+}
 }

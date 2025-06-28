@@ -1,18 +1,19 @@
 // lib/screens/word_detail_screen.dart
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/presentation/widgets/word_display/word_display.dart';
 import '../../objects/word.dart';
 
 class WordDetailScreen extends StatelessWidget {
   final Word word;
-
-  const WordDetailScreen({super.key, required this.word});
+  final WordDisplay wordDisplay;
+  const WordDetailScreen({super.key, required this.word, required this.wordDisplay});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(word.word),
+        title: const Text('Word Details'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -21,23 +22,7 @@ class WordDetailScreen extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           child: Padding(
             padding: const EdgeInsets.all(24.0),
-            child: SizedBox(
-              width: double.infinity,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    word.word,
-                    style: Theme.of(context).textTheme.headlineLarge,
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    word.description,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ],
-              ),
-            ),
+            child: SizedBox(child: wordDisplay, width: double.infinity,) ,
           ),
         ),
       ),
