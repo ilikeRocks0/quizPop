@@ -35,20 +35,13 @@ class WordDisplayController {
   String? validateWord(String? value) => wordManager.validateWord(value);
   String? validateDescription(String? value) => wordManager.validateDescription(value);
 
-  Future<bool> handleSave(BuildContext context) async {
-    if (!(formKey.currentState?.validate() ?? false)) return false;
+  Future<Word?> handleEdit(BuildContext context, String newWord, String newDescription) async {
+    if (!(formKey.currentState?.validate() ?? false)) return null;
 
     final confirmed = await modalManager.showConfirmation(context: context);
-    if (!confirmed) return false;
-
-    Word newWord = Word(word: wordController.text, description: descriptionController.text);
-    await wordEditorManager.updateWord(
-      oldWord: word!,
-      newWord: newWord,
-    );
-
-
-    word = newWord;
+    if (!confirmed) return word;
+    
+    Word? updateWord = await wordEditorManager.updateWord(index: word!.index, newWord: newWord, newDescription: newDescription,);
 
 
     ScaffoldMessenger.of(context).showSnackBar(
@@ -56,7 +49,7 @@ class WordDisplayController {
     );
 
     clearFields();
-    return true;
+    return updateWord;
   }
 
   void clearFields() {

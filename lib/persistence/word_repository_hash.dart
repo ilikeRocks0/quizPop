@@ -5,33 +5,34 @@ class WordRepositoryHash implements WordRepository {
   final List<Word> _words = [];
 
   @override
-  Future<void> save(Word word) async {
-    // Simulate saving to a database
-    _words.add(word);
+  Future<void> save(String word, String description) async 
+  {
+    _words.add(Word(index: _words.length, word: word, description: description));
   }
 
   @override
-  Future<List<Word>> fetchAllWords() async {
-    // Return an immutable copy
+  Future<List<Word>> fetchAllWords() async 
+  {
     return List.unmodifiable(_words);
   }
 
   @override
-  Future<void> delete(Word word) async {
-    _words.removeWhere((w) =>
-    w.word == word.word &&
-    w.description == word.description);
+  Future<void> delete(int index) async 
+  {
+    if (index >= 0 && index < _words.length) 
+    {
+      _words.removeAt(index);
+    }
   }
-
 
   @override
-  Future<void> update(Word oldWord, Word newWord) async {
-  final index = _words.indexWhere(
-    (w) => w.word == oldWord.word && w.description == oldWord.description,
-  );
-  print(index);
-  if (index != -1) {
-    _words[index] = newWord;
+  Future<Word?> update(int index, String word, String description) async 
+  {
+    if (index >= 0 && index < _words.length) 
+    {
+      _words[index] = Word(index: index, word: word, description: description);
+      return _words[index];
+    }
+    return null;
   }
-}
 }

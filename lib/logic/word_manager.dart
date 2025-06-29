@@ -1,6 +1,5 @@
 // lib/logic/word_manager.dart
 
-import '../objects/word.dart';
 import '../persistence/word_repository.dart';
 
 class WordManager {
@@ -23,10 +22,6 @@ class WordManager {
   }
 
   Future<void> processAndSave(String wordText, String descriptionText) async {
-    final word = Word(
-      word: wordText.trim(),
-      description: descriptionText.trim(),
-    );
-    await _repository.save(word);
+    await _repository.save(wordText, descriptionText);
   }
 }

@@ -1,13 +1,13 @@
 // lib/data/word_repository.dart
-
 import '../objects/word.dart';
 
 abstract class WordRepository {
-  Future<void> save(Word word);
+  Future<void> save(String word, String description);
 
   Future<List<Word>> fetchAllWords();
   
-  Future<void> delete(Word word);
+  Future<void> delete(int index);
 
-  Future<void> update(Word word, Word newWord);
+  //returns null if invalid index
+  Future<Word?> update(int index, String word, String description);
 }

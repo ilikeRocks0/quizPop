@@ -1,6 +1,7 @@
 // lib/logic/word_editor_manager.dart
 
-import '../objects/word.dart';
+import 'package:flutter_application_2/objects/word.dart';
+
 import '../persistence/word_repository.dart';
 
 class WordEditorManager 
@@ -10,16 +11,14 @@ class WordEditorManager
   WordEditorManager(this._repository);
 
   /// Delete a word from the list
-  Future<void> deleteWord(Word word) async 
+  Future<void> deleteWord(int index) async 
   {
-    await _repository.delete(word);
+    await _repository.delete(index);
   }
 
   /// Replace an old word with a new one
-  Future<void> updateWord({
-    required Word oldWord,
-    required Word newWord,
-  }) async {
-    await _repository.update(oldWord, newWord);
+  Future<Word?> updateWord({required int index, required String newWord, required String newDescription}) async 
+  {
+    return await _repository.update(index, newWord, newDescription);
   }
 }
