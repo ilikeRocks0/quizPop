@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/main_shell.dart';
-import 'package:flutter_application_2/presentation/pages/page_descriptor.dart';
+import 'package:flutter_application_2/body.dart';
+import 'package:flutter_application_2/bottom_nav_bar_factory.dart';
 
 //starts up app
 class MyApp extends StatelessWidget {
-  final List<PageDescriptor> pages;
+  final Body body;
+  final BottomNavBarFactory bottomNavBarFactory;
   
-  const MyApp({super.key, required this.pages});
+  const MyApp({super.key, required this.body, required this.bottomNavBarFactory});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MainShell(pages: pages),
+      home: Scaffold
+      (
+        body: body,
+        bottomNavigationBar: bottomNavBarFactory.getNavBar(),
+      ),
     );
   }
 }

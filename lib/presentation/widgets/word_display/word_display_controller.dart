@@ -15,6 +15,7 @@ class WordDisplayController {
   final WordEditorManager wordEditorManager;
   final ModalManager modalManager;
   final WordManager wordManager;
+  
   Word? word;
   bool isEditing = false;
 

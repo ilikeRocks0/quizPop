@@ -34,6 +34,6 @@ class WordRepositoryStub implements WordRepository {
   {
     // doing some crazy calculations
     print('📝 updates to word at index: ${index} ${word} - ${description}');
-    return Word(word: "annmol word", description: "test description", index: 0);;
+    return Word(word: "annmol word", description: "test description", index: 0);
   }
 }
