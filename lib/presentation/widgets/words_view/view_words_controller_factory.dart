@@ -27,12 +27,18 @@ class ViewWordsControllerFactory
   ViewWordsController buildController()
   {
 
-    WordDisplayController wordDisplayController = WordDisplayController(wordEditorManager: wordEditorManager, wordManager: wordManager, modalManager: modalManager);
+    backPage() =>
+    {
+      navigationManager.popSubPage()
+    };
+
+
+    WordDisplayController wordDisplayController = WordDisplayController(wordEditorManager: wordEditorManager, wordManager: wordManager, modalManager: modalManager, afterDelete: backPage);
 
     //when you click the widget go to the word detail screen
     descriptionPage(BuildContext context, Word word) => 
     {
-      navigationManager.setPage(WordDisplayDescriptorFactory(wordDisplayController: wordDisplayController, word: word).getPage())
+      navigationManager.setSubPage(WordDisplayDescriptorFactory(wordDisplayController: wordDisplayController, word: word).getPage())
     };
 
 

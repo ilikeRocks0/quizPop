@@ -31,8 +31,12 @@ class _WordDisplayState extends State<WordDisplay> {
       currWord = saved;
       setState(() {});
     }
-    
+  }
 
+  void deleteSubmit() async
+  {
+    await widget.controller.handleDelete(context);
+    setState(() {});
   }
   
   
@@ -48,7 +52,8 @@ class _WordDisplayState extends State<WordDisplay> {
     StatelessWidget title = Text(currWord.word, style: Theme.of(context).textTheme.headlineLarge,);
     StatelessWidget description = Text(currWord.description, style: Theme.of(context).textTheme.headlineLarge,);
     Widget saveButton = ElevatedButton(onPressed: editMode, child: const Text('Edit'),);
-
+    Widget deleteButton = ElevatedButton(onPressed: deleteSubmit, child: const Text('Delete'),);
+    
     if (isEditing)
     {
       widget.controller.wordController.text = currWord.word;
@@ -69,7 +74,7 @@ class _WordDisplayState extends State<WordDisplay> {
           const SizedBox(height: 16),
           description,
           const SizedBox(height: 24),
-          saveButton,
+           Row(children: [saveButton, deleteButton])
         ],
       ),
     );

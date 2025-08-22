@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/logic/word_list_manager.dart';
+import 'package:flutter_application_2/presentation/pages/page_descriptor.dart';
 import 'package:flutter_application_2/presentation/widgets/words_view/word_list_view_factory.dart';
 
 class ViewWordsController {
@@ -26,5 +27,15 @@ class ViewWordsController {
     {
       return wordListViewFactory.buildError(e.toString());
     }
+  }
+  
+  Future<PageDescriptor> getPage(BuildContext context) async
+  {
+    Widget widget = await buildWordList(context);
+    return PageDescriptor(
+        label: 'Display Words',
+        icon: Icons.display_settings,
+        screen: widget,
+      );
   }
 }

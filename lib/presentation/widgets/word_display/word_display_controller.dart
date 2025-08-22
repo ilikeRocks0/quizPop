@@ -16,6 +16,9 @@ class WordDisplayController {
   final ModalManager modalManager;
   final WordManager wordManager;
   
+  //optional
+  
+  VoidCallback? afterDelete;
   Word? word;
   bool isEditing = false;
 
@@ -23,6 +26,7 @@ class WordDisplayController {
     required this.wordEditorManager,
     required this.wordManager,
     required this.modalManager,
+    this.afterDelete
   });
 
 
@@ -51,6 +55,26 @@ class WordDisplayController {
 
     clearFields();
     return updateWord;
+  }
+
+  Future<void> handleDelete(BuildContext context) async {
+    if (!(formKey.currentState?.validate() ?? false)) return;
+
+    final confirmed = await modalManager.showConfirmation(context: context);
+    if (!confirmed) return;
+    
+    // delete the word
+    await wordEditorManager.deleteWord(word!.index);
+
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Word deleted!')),
+    );
+
+    clearFields();
+
+    //if not null invoke it
+    afterDelete!();
   }
 
   void clearFields() {
