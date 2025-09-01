@@ -6,7 +6,7 @@ import 'package:flutter_application_2/logic/word_manager.dart';
 import 'package:flutter_application_2/objects/word.dart';
 import 'package:flutter_application_2/presentation/modal_manager.dart';
 import 'package:flutter_application_2/presentation/navigation_manager.dart';
-import 'package:flutter_application_2/presentation/pages/word_display_descriptor_factory.dart';
+import 'package:flutter_application_2/presentation/pages/pageFactories/word_display_descriptor_factory.dart';
 import 'package:flutter_application_2/presentation/widgets/word_display/word_display_controller.dart';
 import 'package:flutter_application_2/presentation/widgets/words_view/view_words_controller.dart';
 import 'package:flutter_application_2/presentation/widgets/words_view/word_list_view_factory.dart';

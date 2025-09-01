@@ -1,4 +1,4 @@
-// lib/screens/page_descriptor.dart
+// The object for the 
 
 import 'package:flutter/material.dart';
 

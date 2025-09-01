@@ -1,0 +1,1 @@
+enum Pages { view_words, add_word, settings }

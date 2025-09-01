@@ -1,10 +1,11 @@
-// lib/screens/page_factory.dart
+//makes the main pages for the bottom navigation bar
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/logic/word_editor_manager.dart';
 import 'package:flutter_application_2/presentation/navigation_manager.dart';
-import 'package:flutter_application_2/presentation/pages/add_word_page_descriptor_factory.dart';
-import 'package:flutter_application_2/presentation/pages/view_words_page_descriptor_factory.dart';
+import 'package:flutter_application_2/presentation/pages/pageFactories/add_word_page_descriptor_factory.dart';
+import 'package:flutter_application_2/presentation/pages/pageFactories/view_words_page_descriptor_factory.dart';
 import 'package:flutter_application_2/presentation/widgets/word_form/word_form_controller.dart';
 import 'package:flutter_application_2/presentation/widgets/words_view/view_words_controller.dart';
 import 'package:flutter_application_2/presentation/widgets/words_view/view_words_controller_factory.dart';
