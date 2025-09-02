@@ -1,12 +1,12 @@
 // lib/screens/add_word_screen.dart
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/logic/word_notification_manager.dart';
-import 'package:flutter_application_2/presentation/widgets/word_form/word_form.dart';
-import 'package:flutter_application_2/presentation/widgets/word_form/word_form_controller.dart';
+import 'package:flutter_application_2/logic/notification_manager/word_notification_manager.dart';
 
 class SettingsScreen extends StatelessWidget {
+  final WordNotificationManager notificationManager;
 
-  const SettingsScreen({super.key});
+  const SettingsScreen({super.key, required this.notificationManager});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +15,7 @@ class SettingsScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: ElevatedButton(
           onPressed: () {
-            WordNotificationManager.instance.showNotification(
+            notificationManager.showNotification(
             title: "title",
             body: "body",
           );

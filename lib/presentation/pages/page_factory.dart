@@ -2,6 +2,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/logic/notification_manager/word_notification_manager.dart';
 import 'package:flutter_application_2/logic/word_editor_manager.dart';
 import 'package:flutter_application_2/presentation/navigation_manager.dart';
 import 'package:flutter_application_2/presentation/pages/pageFactories/add_word_page_descriptor_factory.dart';
@@ -23,9 +24,9 @@ class PageFactory
   final ModalManager modalManager;
   final WordEditorManager wordEditorManager;
   final NavigationManager navigationManager;
-  
+  final WordNotificationManager notificationManager;
 
-  PageFactory({required this.wordManager, required this.navigationManager, required this.wordEditorManager, required this.wordListManager, required this.modalManager,});
+  PageFactory({required this.wordManager, required this.navigationManager, required this.wordEditorManager, required this.wordListManager, required this.modalManager, required this.notificationManager});
 
   List<PageDescriptor> buildPages() {
 
@@ -40,7 +41,7 @@ class PageFactory
 
 
     //page construction
-    final PageDescriptor settingsPageDescriptor = SettingsScreenPageDescriptorFactory().getPage();
+    final PageDescriptor settingsPageDescriptor = SettingsScreenPageDescriptorFactory(notificationManager).getPage();
     final PageDescriptor addWordPageDescriptor = AddWordPageDescriptorFactory(wordFormController: wordFormController).getPage();
     final PageDescriptor viewWordsPageDescriptor = ViewWordsPageDescriptorFactory(viewWordsController: viewWordsController).getPage();
     

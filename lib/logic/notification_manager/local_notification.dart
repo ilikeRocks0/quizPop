@@ -1,20 +1,16 @@
+import 'package:flutter_application_2/logic/notification_manager/word_notification_manager.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-class WordNotificationManager {
-  WordNotificationManager._private();
-  static final WordNotificationManager instance =
-      WordNotificationManager._private();
-
-  final FlutterLocalNotificationsPlugin notificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-
+class LocalNotification implements WordNotificationManager 
+{
+  final FlutterLocalNotificationsPlugin notificationsPlugin = FlutterLocalNotificationsPlugin();
   bool _isInitialized = false;
 
+  @override
   Future<void> initNotification() async {
     if (_isInitialized) return;
 
-    const initSettingsAndroid =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+    const initSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
 
     const initSettingsIOS = DarwinInitializationSettings(
       requestAlertPermission: true,
@@ -43,6 +39,7 @@ class WordNotificationManager {
     );
   }
 
+  @override
   Future<void> showNotification({
     int id = 0,
     String? title,
