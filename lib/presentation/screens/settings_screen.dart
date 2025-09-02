@@ -15,7 +15,7 @@ class SettingsScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: ElevatedButton(
           onPressed: () {
-            WordNotificationManager().showNotification(
+            WordNotificationManager.instance.showNotification(
             title: "title",
             body: "body",
           );

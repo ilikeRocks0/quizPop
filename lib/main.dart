@@ -14,11 +14,19 @@ import 'package:flutter_application_2/presentation/pages/page_factory.dart';
 import 'package:flutter_application_2/presentation/widgets/word_form/word_form_controller.dart';
 import 'package:flutter_application_2/presentation/widgets/word_form/word_form_controller_factory.dart';
 import 'package:flutter_application_2/logic/word_notification_manager.dart';
-void main() {
+import 'package:permission_handler/permission_handler.dart';
+
+Future<void> requestNotificationPermission() async {
+  if (await Permission.notification.isDenied) {
+    await Permission.notification.request();
+  }
+}
+void main() async {
 
     //notification stuff
     WidgetsFlutterBinding.ensureInitialized();
-    WordNotificationManager().initNotification();
+    await WordNotificationManager.instance.initNotification();
+    await requestNotificationPermission();
 
     final wordRepository = SharedPrefsWordRepository();
     final wordManager = WordManager(wordRepository);
