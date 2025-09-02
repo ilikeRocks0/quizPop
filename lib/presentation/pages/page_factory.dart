@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/logic/word_editor_manager.dart';
 import 'package:flutter_application_2/presentation/navigation_manager.dart';
 import 'package:flutter_application_2/presentation/pages/pageFactories/add_word_page_descriptor_factory.dart';
+import 'package:flutter_application_2/presentation/pages/pageFactories/settings_screen_page_descriptor_factory.dart';
 import 'package:flutter_application_2/presentation/pages/pageFactories/view_words_page_descriptor_factory.dart';
 import 'package:flutter_application_2/presentation/widgets/word_form/word_form_controller.dart';
 import 'package:flutter_application_2/presentation/widgets/words_view/view_words_controller.dart';
@@ -39,6 +40,7 @@ class PageFactory
 
 
     //page construction
+    final PageDescriptor settingsPageDescriptor = SettingsScreenPageDescriptorFactory().getPage();
     final PageDescriptor addWordPageDescriptor = AddWordPageDescriptorFactory(wordFormController: wordFormController).getPage();
     final PageDescriptor viewWordsPageDescriptor = ViewWordsPageDescriptorFactory(viewWordsController: viewWordsController).getPage();
     
@@ -46,6 +48,7 @@ class PageFactory
 
     pages.add(addWordPageDescriptor);
     pages.add(viewWordsPageDescriptor);
+    pages.add(settingsPageDescriptor);
 
 
 

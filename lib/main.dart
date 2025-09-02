@@ -13,8 +13,13 @@ import 'package:flutter_application_2/presentation/pages/pageFactories/add_word_
 import 'package:flutter_application_2/presentation/pages/page_factory.dart';
 import 'package:flutter_application_2/presentation/widgets/word_form/word_form_controller.dart';
 import 'package:flutter_application_2/presentation/widgets/word_form/word_form_controller_factory.dart';
-
+import 'package:flutter_application_2/logic/word_notification_manager.dart';
 void main() {
+
+    //notification stuff
+    WidgetsFlutterBinding.ensureInitialized();
+    WordNotificationManager().initNotification();
+
     final wordRepository = SharedPrefsWordRepository();
     final wordManager = WordManager(wordRepository);
     final wordListManager = WordListManager(wordRepository);
