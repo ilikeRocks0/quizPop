@@ -1,35 +1,26 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_application_2/body_controller.dart';
-import 'package:flutter_application_2/presentation/pages/page_descriptor.dart';
+import 'package:flutter_application_2/objects/pages.dart';
 
 class NavigationManager {
   final BodyController bodyController;
-  Widget? mainBody;
-  Widget? subBody;
+  late HashMap<Pages, Widget> registery;
 
   NavigationManager({required this.bodyController});
 
-  void setPage(PageDescriptor page) 
+  void initPages(HashMap<Pages, Widget> registery)
   {
-    mainBody = page.screen;
-    subBody = null;
-    bodyController.changeBody(page.screen);
-
-  }
-  
-  void setSubPage(PageDescriptor page)
-  {
-    subBody = page.screen;
-    bodyController.changeBody(page.screen);
+    this.registery = registery;
   }
 
-  void popSubPage()
+  void setPage(Pages page) 
   {
-    if(subBody != null)
+    if(registery.containsKey(page))
     {
-      bodyController.changeBody(mainBody!);
-      subBody = null;
+      bodyController.changeBody(registery[page]!);
     }
   }
 }

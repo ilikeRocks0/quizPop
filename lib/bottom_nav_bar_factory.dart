@@ -27,7 +27,7 @@ class BottomNavBarFactory
   {
     return BottomNavigationBar(
         currentIndex: currIndex,
-        onTap: (index) => navigationManager.setPage(pages[index]),
+        onTap: (index) => navigationManager.setPage(pages[index].id),
         items: _buildNavItems(),
       );
   }

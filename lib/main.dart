@@ -4,16 +4,15 @@ import 'package:flutter_application_2/body_controller.dart';
 import 'package:flutter_application_2/bottom_nav_bar_factory.dart';
 import 'package:flutter_application_2/logic/notification_manager/local_notification_factory.dart';
 import 'package:flutter_application_2/logic/word_list_manager.dart';
+import 'package:flutter_application_2/objects/pages.dart';
 import 'package:flutter_application_2/persistence/word_repository_wordPref.dart';
 import 'package:flutter_application_2/presentation/modal_manager.dart';
 import 'package:flutter_application_2/logic/word_manager.dart';
 import 'package:flutter_application_2/logic/word_editor_manager.dart';
 import 'package:flutter_application_2/myApp.dart';
+import 'package:flutter_application_2/presentation/navigation_displayWord.dart';
 import 'package:flutter_application_2/presentation/navigation_manager.dart';
-import 'package:flutter_application_2/presentation/pages/pageFactories/add_word_page_descriptor_factory.dart';
 import 'package:flutter_application_2/presentation/pages/page_factory.dart';
-import 'package:flutter_application_2/presentation/widgets/word_form/word_form_controller.dart';
-import 'package:flutter_application_2/presentation/widgets/word_form/word_form_controller_factory.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 Future<void> requestNotificationPermission() async {
@@ -35,19 +34,22 @@ void main() async {
     const modalManager = ModalManager(); 
 
 
-
     //setting up body
-    WordFormController wordFormController = WordFormControllerFactory(modalManager, wordManager).buildController();
-    BodyController bodyController = BodyController(AddWordPageDescriptorFactory(wordFormController: wordFormController).getPage().screen);
+    BodyController bodyController = BodyController(const Scaffold()); //start empty
     Body body = Body(contentNotifier: bodyController.contentNotifier);
 
-    NavigationManager navigationManager = NavigationManager(bodyController: bodyController);
-
-    final pageFactory = PageFactory(wordManager: wordManager, wordEditorManager: wordEditorManager, wordListManager: wordListManager, modalManager: modalManager, navigationManager: navigationManager, notificationManager: notificationManager);
-    final pages = pageFactory.buildPages();
-
-    BottomNavBarFactory bottomNavBarFactory = BottomNavBarFactory(pages: pages, navigationManager: navigationManager);
+    final NavigationDisplayword navigationDisplayword = NavigationDisplayword(bodyController: bodyController);
+    final NavigationManager navigationManager = NavigationManager(bodyController: bodyController);
   
+    final pageFactory = PageFactory(wordManager: wordManager, wordEditorManager: wordEditorManager, wordListManager: wordListManager, modalManager: modalManager, navigationManager: navigationManager, notificationManager: notificationManager, navigationDisplayword: navigationDisplayword);
+    //handling circular dependencies
+    pageFactory.buildPages();
+    final pages = pageFactory.getBottomPages();
+    navigationManager.initPages(pageFactory.getRegistry());
+    navigationDisplayword.initPageFactory(pageFactory.getDisplayWordFactory()!);
+    
+    BottomNavBarFactory bottomNavBarFactory = BottomNavBarFactory(pages: pages, navigationManager: navigationManager);
+    navigationManager.setPage(Pages.viewWords); //set default screen
 
     runApp(MyApp(body: body, bottomNavBarFactory: bottomNavBarFactory,));
 }

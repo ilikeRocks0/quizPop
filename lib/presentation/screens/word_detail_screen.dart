@@ -2,12 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/presentation/widgets/word_display/word_display.dart';
-import '../../objects/word.dart';
 
 class WordDetailScreen extends StatelessWidget {
-  final Word word;
   final WordDisplay wordDisplay;
-  const WordDetailScreen({super.key, required this.word, required this.wordDisplay});
+  const WordDetailScreen({super.key, required this.wordDisplay});
 
   @override
   Widget build(BuildContext context) {

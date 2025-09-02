@@ -1,1 +1,1 @@
-enum Pages { view_words, add_word, settings }
+enum Pages { viewWords, addWord, settings, displayWord}
