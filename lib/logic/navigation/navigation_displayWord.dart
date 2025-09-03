@@ -1,6 +1,7 @@
 
 
-import 'package:flutter_application_2/body_controller.dart';
+
+import 'package:flutter_application_2/logic/navigation/screen_body/body_controller.dart';
 import 'package:flutter_application_2/objects/word.dart';
 import 'package:flutter_application_2/presentation/screens/word_detail_screen_factory.dart';
 

@@ -1,7 +1,7 @@
 // lib/screens/main_shell.dart
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/presentation/navigation_manager.dart';
+import 'package:flutter_application_2/logic/navigation/navigation_manager.dart';
 import 'package:flutter_application_2/presentation/pages/page_descriptor.dart';
 
 //sets up the bottom nav bar

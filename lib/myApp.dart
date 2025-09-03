@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/body.dart';
-import 'package:flutter_application_2/bottom_nav_bar_factory.dart';
+import 'package:flutter_application_2/logic/navigation/screen_body/body.dart';
+import 'package:flutter_application_2/logic/navigation/bottom_nav_bar_factory.dart';
 
 //starts up app
 class MyApp extends StatelessWidget {

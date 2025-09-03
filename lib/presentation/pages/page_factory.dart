@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/logic/notification_manager/word_notification_manager.dart';
 import 'package:flutter_application_2/logic/word_editor_manager.dart';
 import 'package:flutter_application_2/objects/pages.dart';
-import 'package:flutter_application_2/presentation/navigation_displayWord.dart';
-import 'package:flutter_application_2/presentation/navigation_manager.dart';
+import 'package:flutter_application_2/logic/navigation/navigation_displayWord.dart';
+import 'package:flutter_application_2/logic/navigation/navigation_manager.dart';
 import 'package:flutter_application_2/presentation/pages/pageFactories/add_word_page_descriptor_factory.dart';
 import 'package:flutter_application_2/presentation/pages/pageFactories/settings_screen_page_descriptor_factory.dart';
 import 'package:flutter_application_2/presentation/pages/pageFactories/view_words_page_descriptor_factory.dart';
@@ -22,7 +22,7 @@ import 'package:flutter_application_2/presentation/widgets/words_view/view_words
 import 'package:flutter_application_2/presentation/widgets/words_view/word_list_view_factory.dart';
 import '../../logic/word_manager.dart';
 import '../../logic/word_list_manager.dart';
-import '../modal_manager.dart';
+import '../../logic/navigation/modal_manager.dart';
 import 'page_descriptor.dart';
 
 class PageFactory 

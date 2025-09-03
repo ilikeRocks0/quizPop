@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import '../../../logic/word_manager.dart';
-import '../../modal_manager.dart';
+import '../../../logic/navigation/modal_manager.dart';
 
 class WordFormController {
   final formKey = GlobalKey<FormState>();

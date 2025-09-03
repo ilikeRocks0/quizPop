@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/body.dart';
-import 'package:flutter_application_2/body_controller.dart';
-import 'package:flutter_application_2/bottom_nav_bar_factory.dart';
+import 'package:flutter_application_2/logic/navigation/screen_body/body.dart';
+import 'package:flutter_application_2/logic/navigation/screen_body/body_controller.dart';
+import 'package:flutter_application_2/logic/navigation/bottom_nav_bar_factory.dart';
 import 'package:flutter_application_2/logic/notification_manager/local_notification_factory.dart';
 import 'package:flutter_application_2/logic/word_list_manager.dart';
 import 'package:flutter_application_2/objects/pages.dart';
 import 'package:flutter_application_2/persistence/word_repository_wordPref.dart';
-import 'package:flutter_application_2/presentation/modal_manager.dart';
+import 'package:flutter_application_2/logic/navigation/modal_manager.dart';
 import 'package:flutter_application_2/logic/word_manager.dart';
 import 'package:flutter_application_2/logic/word_editor_manager.dart';
 import 'package:flutter_application_2/myApp.dart';
-import 'package:flutter_application_2/presentation/navigation_displayWord.dart';
-import 'package:flutter_application_2/presentation/navigation_manager.dart';
+import 'package:flutter_application_2/logic/navigation/navigation_displayWord.dart';
+import 'package:flutter_application_2/logic/navigation/navigation_manager.dart';
 import 'package:flutter_application_2/presentation/pages/page_factory.dart';
 import 'package:permission_handler/permission_handler.dart';
 

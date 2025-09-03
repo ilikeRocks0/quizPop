@@ -2,7 +2,7 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_application_2/body_controller.dart';
+import 'package:flutter_application_2/logic/navigation/screen_body/body_controller.dart';
 import 'package:flutter_application_2/objects/pages.dart';
 
 class NavigationManager {
@@ -11,7 +11,8 @@ class NavigationManager {
 
   NavigationManager({required this.bodyController});
 
-  void initPages(HashMap<Pages, Widget> registery)
+  void 
+  initPages(HashMap<Pages, Widget> registery)
   {
     this.registery = registery;
   }
