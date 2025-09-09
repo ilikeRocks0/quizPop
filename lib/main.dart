@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/config/page_descriptor_config.dart';
 import 'package:flutter_application_2/logic/navigation/screen_body/body.dart';
 import 'package:flutter_application_2/logic/navigation/screen_body/body_controller.dart';
 import 'package:flutter_application_2/logic/navigation/bottom_nav_bar_factory.dart';
@@ -26,6 +27,10 @@ void main() async {
     WidgetsFlutterBinding.ensureInitialized(); //needed to do notification request
     await requestNotificationPermission();
 
+    //set up config settings
+    final pageDescConfig = PageDescriptorConfig();
+
+    //set up logic layer
     final wordRepository = SharedPrefsWordRepository();
     final wordManager = WordManager(wordRepository);
     final notificationManager = await LocalNotificationFactory().getNotificationManager();
@@ -48,7 +53,7 @@ void main() async {
     navigationManager.initPages(pageFactory.getRegistry());
     navigationDisplayword.initPageFactory(pageFactory.getDisplayWordFactory()!);
     
-    BottomNavBarFactory bottomNavBarFactory = BottomNavBarFactory(pages: pages, navigationManager: navigationManager);
+    BottomNavBarFactory bottomNavBarFactory = BottomNavBarFactory(pages: pages,pagesConfig: pageDescConfig.getConfig(), navigationManager: navigationManager);
     navigationManager.setPage(Pages.viewWords); //set default screen
 
     runApp(MyApp(body: body, bottomNavBarFactory: bottomNavBarFactory,));

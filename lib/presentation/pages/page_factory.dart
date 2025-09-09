@@ -9,9 +9,6 @@ import 'package:flutter_application_2/logic/word_editor_manager.dart';
 import 'package:flutter_application_2/objects/pages.dart';
 import 'package:flutter_application_2/logic/navigation/navigation_displayWord.dart';
 import 'package:flutter_application_2/logic/navigation/navigation_manager.dart';
-import 'package:flutter_application_2/presentation/pages/pageFactories/add_word_page_descriptor_factory.dart';
-import 'package:flutter_application_2/presentation/pages/pageFactories/settings_screen_page_descriptor_factory.dart';
-import 'package:flutter_application_2/presentation/pages/pageFactories/view_words_page_descriptor_factory.dart';
 import 'package:flutter_application_2/presentation/screens/add_word_screen.dart';
 import 'package:flutter_application_2/presentation/screens/settings_screen.dart';
 import 'package:flutter_application_2/presentation/screens/view_words_screens.dart';
@@ -23,7 +20,6 @@ import 'package:flutter_application_2/presentation/widgets/words_view/word_list_
 import '../../logic/word_manager.dart';
 import '../../logic/word_list_manager.dart';
 import '../../logic/navigation/modal_manager.dart';
-import 'page_descriptor.dart';
 
 class PageFactory 
 {
@@ -36,7 +32,7 @@ class PageFactory
   final NavigationDisplayword navigationDisplayword;
   bool initialized = false;
 
-  List<PageDescriptor> botPages = []; //for bottom navigation bar
+  List<Pages> botPages = []; //for bottom navigation bar
   HashMap<Pages, Widget> registery = HashMap(); //for navigation system, for static pages
   late WordDetailScreenFactory wordDetailScreenFactory;
 
@@ -69,25 +65,19 @@ class PageFactory
     //settings screen
     final SettingsScreen settingsScreen = SettingsScreen(notificationManager: notificationManager);
 
-    //page construction
-    final PageDescriptor settingsPageDescriptor = SettingsScreenPageDescriptorFactory(settingsScreen).getPage();
-    final PageDescriptor addWordPageDescriptor = AddWordPageDescriptorFactory(addWordScreen: addWordScreen).getPage();
-    final PageDescriptor viewWordsPageDescriptor = ViewWordsPageDescriptorFactory(viewWordScreen: viewWordScreen).getPage();
-    
 
+    botPages.add(Pages.addWord);
+    botPages.add(Pages.viewWords);
+    botPages.add(Pages.settings);
 
-    botPages.add(addWordPageDescriptor);
-    botPages.add(viewWordsPageDescriptor);
-    botPages.add(settingsPageDescriptor);
-
-    registery[Pages.addWord] = addWordPageDescriptor.screen;
-    registery[Pages.viewWords] = viewWordsPageDescriptor.screen;
-    registery[Pages.settings] = settingsPageDescriptor.screen;
+    registery[Pages.addWord] = addWordScreen;
+    registery[Pages.viewWords] = viewWordScreen;
+    registery[Pages.settings] = settingsScreen;
 
     initialized = true;
   }
 
-  List<PageDescriptor> getBottomPages()
+  List<Pages> getBottomPages()
   {
     if(initialized)
     {
