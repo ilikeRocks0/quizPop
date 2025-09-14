@@ -1,5 +1,8 @@
 import 'package:flutter_application_2/logic/notification_manager/word_notification_manager.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
+import 'package:flutter_timezone/flutter_timezone.dart';
 
 class LocalNotification implements WordNotificationManager 
 {
@@ -10,6 +13,10 @@ class LocalNotification implements WordNotificationManager
   Future<void> initNotification() async {
     if (_isInitialized) return;
 
+    tz.initializeTimeZones();
+    final String timeZoneName = await FlutterTimezone.getLocalTimezone();
+    tz.setLocalLocation(tz.getLocation(timeZoneName));
+    
     const initSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
 
     const initSettingsIOS = DarwinInitializationSettings(
@@ -18,8 +25,7 @@ class LocalNotification implements WordNotificationManager
       requestSoundPermission: true,
     );
 
-    const initSettings =
-        InitializationSettings(android: initSettingsAndroid, iOS: initSettingsIOS);
+    const initSettings = InitializationSettings(android: initSettingsAndroid, iOS: initSettingsIOS);
 
     await notificationsPlugin.initialize(initSettings);
 
@@ -51,5 +57,34 @@ class LocalNotification implements WordNotificationManager
       body,
       _notificationDetails(),
     );
+  }
+
+  @override
+  Future<void> scheduleNotification({
+    int id = 0,
+    String? title,
+    String? body,
+    String? payLoad,
+    required DateTime scheduledNotificationDateTime,
+  }) async {
+    return notificationsPlugin.zonedSchedule(
+      id,
+      title,
+      body,
+      tz.TZDateTime.now(tz.local).add(const Duration(seconds: 1)),
+      _notificationDetails(),
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      matchDateTimeComponents: DateTimeComponents.time,
+    );
+  }
+
+  static tz.TZDateTime _nextInstanceOfTime(DateTime time) {
+    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+    tz.TZDateTime scheduledDate = tz.TZDateTime(
+        tz.local, now.year, now.month, now.day, time.hour, time.minute);
+    if (scheduledDate.isBefore(now)) {
+      scheduledDate = scheduledDate.add(const Duration(days: 1));
+    }
+    return scheduledDate;
   }
 }

@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/objects/page_descriptor.dart';
 import 'package:flutter_application_2/objects/pages.dart';
 
+//used to display icons for different pages
+//e.g. bottom navigation bar
 class PageDescriptorConfig 
 {
   

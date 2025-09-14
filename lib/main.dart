@@ -15,6 +15,8 @@ import 'package:flutter_application_2/logic/navigation/navigation_displayWord.da
 import 'package:flutter_application_2/logic/navigation/navigation_manager.dart';
 import 'package:flutter_application_2/presentation/pages/page_factory.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:timezone/data/latest.dart' as tz;
+// import 'package:timezone/timezone.dart' as tz;
 
 Future<void> requestNotificationPermission() async {
   if (await Permission.notification.isDenied) {
@@ -27,6 +29,9 @@ void main() async {
     WidgetsFlutterBinding.ensureInitialized(); //needed to do notification request
     await requestNotificationPermission();
 
+
+    // tz.setLocalLocation(tz.getLocation(flutter_timezone.getLocalTimezone()));
+
     //set up config settings
     final pageDescConfig = PageDescriptorConfig();
 
@@ -38,6 +43,14 @@ void main() async {
     final wordEditorManager = WordEditorManager(wordRepository);
     const modalManager = ModalManager(); 
 
+    final testTime = DateTime.now().add(Duration(seconds: 20)); // For testing purposes
+
+
+    notificationManager.scheduleNotification(
+      title: "scheduled",
+      body: "tests",
+      scheduledNotificationDateTime: testTime,
+    );
 
     //setting up body
     BodyController bodyController = BodyController(const Scaffold()); //start empty
