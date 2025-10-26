@@ -59,32 +59,40 @@ class LocalNotification implements WordNotificationManager
     );
   }
 
+
+  //
   @override
   Future<void> scheduleNotification({
     int id = 0,
-    String? title,
-    String? body,
-    String? payLoad,
-    required DateTime scheduledNotificationDateTime,
+    required String title,
+    required String body,
+    required int hour,
+    required int minute,
   }) async {
-    return notificationsPlugin.zonedSchedule(
+
+
+    final now = tz.TZDateTime.now(tz.local);
+
+    var scheduleDate = tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minute);
+
+    await notificationsPlugin.zonedSchedule(
       id,
       title,
       body,
-      tz.TZDateTime.now(tz.local).add(const Duration(seconds: 1)),
+      scheduleDate,
       _notificationDetails(),
+      //allow notification when device in low-power mode
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      matchDateTimeComponents: DateTimeComponents.time,
+
+      //make notification repeat daily at same time
+      matchDateTimeComponents: DateTimeComponents.time, //time will do it every day at the specified time
     );
+
+    print("Notification scheduled");
   }
 
-  static tz.TZDateTime _nextInstanceOfTime(DateTime time) {
-    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
-    tz.TZDateTime scheduledDate = tz.TZDateTime(
-        tz.local, now.year, now.month, now.day, time.hour, time.minute);
-    if (scheduledDate.isBefore(now)) {
-      scheduledDate = scheduledDate.add(const Duration(days: 1));
-    }
-    return scheduledDate;
+  //cancel all notifications that are active
+  Future<void> cancelAllNotifications() async {
+    await notificationsPlugin.cancelAll();
   }
 }

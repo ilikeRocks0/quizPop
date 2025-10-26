@@ -13,7 +13,8 @@ class SettingsScreen extends StatelessWidget {
       appBar: AppBar(title: const Text('Settings')),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: ElevatedButton(
+        child: Column(children: [
+          ElevatedButton(
           onPressed: () {
             notificationManager.showNotification(
             title: "title",
@@ -22,6 +23,18 @@ class SettingsScreen extends StatelessWidget {
           },
           child: const Text("Send Notification"),
           ),
+          ElevatedButton(
+          onPressed: () {
+            notificationManager.scheduleNotification(
+            title: "scheduled",
+            body: "tests",
+            hour: 15,
+            minute:  9,
+          );
+          },
+          child: const Text("Schedule Notif"),
+          ),
+        ],) ,
         ),
       );
   }

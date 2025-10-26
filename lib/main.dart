@@ -46,12 +46,6 @@ void main() async {
     final testTime = DateTime.now().add(Duration(seconds: 20)); // For testing purposes
 
 
-    notificationManager.scheduleNotification(
-      title: "scheduled",
-      body: "tests",
-      scheduledNotificationDateTime: testTime,
-    );
-
     //setting up body
     BodyController bodyController = BodyController(const Scaffold()); //start empty
     Body body = Body(contentNotifier: bodyController.contentNotifier);
