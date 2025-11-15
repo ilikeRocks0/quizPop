@@ -60,7 +60,6 @@ class LocalNotification implements WordNotificationManager
   }
 
 
-  //
   @override
   Future<void> scheduleNotification({
     int id = 0,
@@ -68,12 +67,25 @@ class LocalNotification implements WordNotificationManager
     required String body,
     required int hour,
     required int minute,
+
+    int? year,
+    int? month,
+    int? day,
   }) async {
 
-
     final now = tz.TZDateTime.now(tz.local);
+    final scheduleYear = year ?? now.year;
+    final scheduleMonth = month ?? now.month;
+    final scheduleDay = day ?? now.day;
 
-    var scheduleDate = tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minute);
+    final scheduleDate = tz.TZDateTime(
+      tz.local,
+      scheduleYear,
+      scheduleMonth,
+      scheduleDay,
+      hour,
+      minute,
+    );
 
     await notificationsPlugin.zonedSchedule(
       id,
@@ -81,11 +93,8 @@ class LocalNotification implements WordNotificationManager
       body,
       scheduleDate,
       _notificationDetails(),
-      //allow notification when device in low-power mode
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
 
-      //make notification repeat daily at same time
-      matchDateTimeComponents: DateTimeComponents.time, //time will do it every day at the specified time
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
     );
 
     print("Notification scheduled");
