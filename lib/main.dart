@@ -4,6 +4,7 @@ import 'package:flutter_application_2/logic/navigation/screen_body/body.dart';
 import 'package:flutter_application_2/logic/navigation/screen_body/body_controller.dart';
 import 'package:flutter_application_2/logic/navigation/bottom_nav_bar_factory.dart';
 import 'package:flutter_application_2/logic/notification_manager/local_notification_factory.dart';
+import 'package:flutter_application_2/logic/notification_manager/notification_runner.dart';
 import 'package:flutter_application_2/logic/word_list_manager.dart';
 import 'package:flutter_application_2/objects/pages.dart';
 import 'package:flutter_application_2/persistence/word_repository_wordPref.dart';
@@ -15,8 +16,6 @@ import 'package:flutter_application_2/logic/navigation/navigation_displayWord.da
 import 'package:flutter_application_2/logic/navigation/navigation_manager.dart';
 import 'package:flutter_application_2/presentation/pages/page_factory.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:timezone/data/latest.dart' as tz;
-// import 'package:timezone/timezone.dart' as tz;
 
 Future<void> requestNotificationPermission() async {
   if (await Permission.notification.isDenied) {
@@ -29,9 +28,6 @@ void main() async {
     WidgetsFlutterBinding.ensureInitialized(); //needed to do notification request
     await requestNotificationPermission();
 
-
-    // tz.setLocalLocation(tz.getLocation(flutter_timezone.getLocalTimezone()));
-
     //set up config settings
     final pageDescConfig = PageDescriptorConfig();
 
@@ -41,10 +37,9 @@ void main() async {
     final notificationManager = await LocalNotificationFactory().getNotificationManager();
     final wordListManager = WordListManager(wordRepository);
     final wordEditorManager = WordEditorManager(wordRepository);
+    final notificationRunner = NotificationRunner(wordRepository, notificationManager);
     const modalManager = ModalManager(); 
-
-    final testTime = DateTime.now().add(Duration(seconds: 20)); // For testing purposes
-
+    
 
     //setting up body
     BodyController bodyController = BodyController(const Scaffold()); //start empty
@@ -64,4 +59,7 @@ void main() async {
     navigationManager.setPage(Pages.viewWords); //set default screen
 
     runApp(MyApp(body: body, bottomNavBarFactory: bottomNavBarFactory,));
+    
+    //set up notifications for 30 days
+    notificationRunner.setUpNotifications();
 }

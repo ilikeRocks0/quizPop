@@ -101,6 +101,7 @@ class LocalNotification implements WordNotificationManager
   }
 
   //cancel all notifications that are active
+  @override
   Future<void> cancelAllNotifications() async {
     await notificationsPlugin.cancelAll();
   }
